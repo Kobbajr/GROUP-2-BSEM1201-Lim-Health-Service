@@ -1,0 +1,208 @@
+/* ============================================================
+   SPLASH.CSS — Lim Health Service
+============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --primary:   #0F2C59;
+  --accent:    #10B981;
+  --accent-dim:#0d9e6e;
+  --bg:        #060f1e;
+  --text:      #e8f0fe;
+  --muted:     #4a6fa5;
+  --font: 'Segoe UI', system-ui, sans-serif;
+}
+
+html, body {
+  height: 100%;
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  overflow: hidden;
+}
+
+/* ── Container ── */
+.splash-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse at 30% 20%, rgba(15,44,89,.7) 0%, transparent 60%),
+              radial-gradient(ellipse at 70% 80%, rgba(16,185,129,.08) 0%, transparent 60%),
+              var(--bg);
+}
+
+/* ── Particles ── */
+.particles { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: .12;
+  animation: drift linear infinite;
+}
+.p1 { width:6px;  height:6px;  top:15%; left:10%; animation-duration:12s; animation-delay:0s; }
+.p2 { width:4px;  height:4px;  top:60%; left:85%; animation-duration:9s;  animation-delay:2s; }
+.p3 { width:8px;  height:8px;  top:75%; left:20%; animation-duration:15s; animation-delay:1s; }
+.p4 { width:5px;  height:5px;  top:30%; left:75%; animation-duration:11s; animation-delay:3s; }
+.p5 { width:3px;  height:3px;  top:85%; left:50%; animation-duration:8s;  animation-delay:0.5s; }
+.p6 { width:7px;  height:7px;  top:20%; left:45%; animation-duration:13s; animation-delay:4s; }
+
+@keyframes drift {
+  0%   { transform: translateY(0) scale(1); opacity: .12; }
+  50%  { opacity: .22; }
+  100% { transform: translateY(-80vh) scale(.6); opacity: 0; }
+}
+
+/* ── ECG Strip ── */
+.ecg-strip {
+  position: absolute;
+  bottom: 18%;
+  left: 0;
+  right: 0;
+  height: 60px;
+  opacity: .18;
+}
+.ecg-strip svg { width: 100%; height: 100%; }
+.ecg-line {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1600;
+  stroke-dashoffset: 1600;
+  animation: ecg-scan 2.4s ease-in-out infinite;
+}
+@keyframes ecg-scan {
+  0%   { stroke-dashoffset: 1600; }
+  70%  { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: 0; opacity: .3; }
+}
+
+/* ── Main Content ── */
+.splash-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  position: relative;
+  z-index: 2;
+  animation: content-in .8s ease both;
+}
+@keyframes content-in {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Pulse Rings ── */
+.pulse-wrapper {
+  position: relative;
+  width: 130px;
+  height: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  animation: ring-pulse 2.2s ease-out infinite;
+}
+.ring1 { width: 130px; height: 130px; animation-delay: 0s;    opacity: .15; }
+.ring2 { width: 100px; height: 100px; animation-delay: .5s;   opacity: .25; }
+.ring3 { width:  72px; height:  72px; animation-delay: 1s;    opacity: .35; }
+
+@keyframes ring-pulse {
+  0%   { transform: scale(.8); opacity: .4; }
+  70%  { transform: scale(1.1); opacity: .1; }
+  100% { transform: scale(1.2); opacity: 0; }
+}
+
+.icon-core {
+  position: relative;
+  z-index: 2;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #0a1e3d, #0d2a52);
+  border: 2px solid rgba(16,185,129,.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 40px rgba(16,185,129,.2), 0 0 0 1px rgba(16,185,129,.1);
+  animation: heartbeat 1.5s ease-in-out infinite;
+}
+@keyframes heartbeat {
+  0%,100% { transform: scale(1); }
+  14%     { transform: scale(1.1); }
+  28%     { transform: scale(1); }
+  42%     { transform: scale(1.06); }
+}
+
+/* ── Logo image ── */
+.splash-logo { text-align: center; }
+.splash-logo-img {
+  width: 220px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 20px rgba(16,185,129,.25));
+  animation: logo-glow 3s ease-in-out infinite alternate;
+}
+@keyframes logo-glow {
+  from { filter: drop-shadow(0 4px 16px rgba(16,185,129,.2)); }
+  to   { filter: drop-shadow(0 4px 32px rgba(16,185,129,.5)); }
+}
+.logo-tagline {
+  font-size: .82rem;
+  color: var(--muted);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  margin-top: .6rem;
+}
+
+/* ── Progress ── */
+.progress-wrap {
+  width: 220px;
+  height: 3px;
+  background: rgba(255,255,255,.08);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  border-radius: 2px;
+  transition: width .1s linear;
+  box-shadow: 0 0 10px rgba(16,185,129,.5);
+}
+.loading-text {
+  font-size: .76rem;
+  color: var(--muted);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  margin-top: -.8rem;
+}
+
+/* ── Version ── */
+.version-tag {
+  position: absolute;
+  bottom: 1.4rem;
+  right: 1.8rem;
+  font-size: .7rem;
+  color: var(--muted);
+  letter-spacing: .08em;
+}
+
+/* ── Fade out ── */
+.splash-container.fade-out {
+  animation: fade-out .6s ease forwards;
+}
+@keyframes fade-out {
+  to { opacity: 0; transform: scale(1.04); }
+}

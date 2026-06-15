@@ -1,0 +1,1647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lim Health Clinic</title>
+  <style>
+    /* ============================================================
+       CSS RESET & CUSTOM PROPERTIES
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-base:        #050d1a;
+      --bg-surface:     #0a1628;
+      --bg-card:        #0d1f3c;
+      --bg-card-hover:  #102444;
+      --bg-input:       #081322;
+      --border:         #1a3050;
+      --border-light:   #1e3a5f;
+
+      --accent:         #2de4b6;       /* eucalyptus mint */
+      --accent-dim:     #1ab893;
+      --accent-glow:    rgba(45,228,182,.18);
+      --accent-glow-lg: rgba(45,228,182,.10);
+
+      --blue-mid:       #0a6be8;
+      --blue-dim:       #0857bc;
+
+      --text-primary:   #e8f0fe;
+      --text-secondary: #7a9cc8;
+      --text-muted:     #3f5f82;
+      --text-white:     #ffffff;
+
+      --star-on:        #f5c842;
+      --star-off:       #1e3a5f;
+
+      --radius-sm:  6px;
+      --radius-md:  12px;
+      --radius-lg:  18px;
+      --radius-xl:  24px;
+      --radius-pill: 999px;
+
+      --shadow-card: 0 4px 32px rgba(0,0,0,.45), 0 1px 4px rgba(0,0,0,.3);
+      --shadow-glow: 0 0 32px var(--accent-glow);
+      --shadow-btn:  0 4px 20px rgba(45,228,182,.3);
+
+      --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      --mono: 'Consolas', monospace;
+
+      --transition: .22s cubic-bezier(.4,0,.2,1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg-base);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* ============================================================
+       SCROLLBAR
+    ============================================================ */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-base); }
+    ::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent-dim); }
+
+    /* ============================================================
+       TYPOGRAPHY HELPERS
+    ============================================================ */
+    .section-label {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: .5rem;
+    }
+    .section-title {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 800;
+      color: var(--text-white);
+      line-height: 1.2;
+    }
+    .section-sub {
+      color: var(--text-secondary);
+      max-width: 520px;
+      margin: .75rem auto 0;
+      font-size: .96rem;
+    }
+    .section-head { text-align: center; margin-bottom: 2.8rem; }
+
+    /* ============================================================
+       BUTTONS
+    ============================================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .7rem 1.6rem;
+      border-radius: var(--radius-pill);
+      font-size: .9rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+      cursor: pointer;
+      border: none;
+      transition: all var(--transition);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #03111e;
+      box-shadow: var(--shadow-btn);
+    }
+    .btn-primary:hover {
+      background: #4aedc7;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(45,228,182,.45);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--accent);
+      border: 1.5px solid var(--accent);
+    }
+    .btn-outline:hover {
+      background: var(--accent-glow);
+      transform: translateY(-2px);
+    }
+    .btn-ghost {
+      background: var(--bg-card);
+      color: var(--text-primary);
+      border: 1.5px solid var(--border-light);
+    }
+    .btn-ghost:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+    .btn-blue {
+      background: var(--blue-mid);
+      color: #fff;
+    }
+    .btn-blue:hover {
+      background: #1a7df5;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(10,107,232,.4);
+    }
+    .btn-sm { padding: .5rem 1.2rem; font-size: .82rem; }
+    .btn-lg { padding: .9rem 2rem; font-size: 1rem; }
+
+    /* ============================================================
+       LAYOUT CONTAINER
+    ============================================================ */
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ============================================================
+       HEADER / NAV
+    ============================================================ */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(5,13,26,.82);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+    }
+
+    /* Logo */
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, var(--blue-mid), var(--accent));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+    .logo-text { display: flex; flex-direction: column; line-height: 1.1; }
+    .logo-text strong {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--text-white);
+    }
+    .logo-text span {
+      font-size: .68rem;
+      color: var(--accent);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    /* Nav Links */
+    nav { display: flex; align-items: center; gap: .25rem; }
+    nav a {
+      padding: .5rem .9rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: .88rem;
+      font-weight: 500;
+      border-radius: var(--radius-sm);
+      transition: color var(--transition), background var(--transition);
+      position: relative;
+    }
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 4px;
+      left: 50%;
+      transform: translateX(-50%) scaleX(0);
+      width: 16px;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 2px;
+      transition: transform var(--transition);
+    }
+    nav a:hover { color: var(--text-white); background: rgba(45,228,182,.06); }
+    nav a:hover::after, nav a.active::after { transform: translateX(-50%) scaleX(1); }
+    nav a.active { color: var(--text-white); }
+
+    /* ============================================================
+       HERO SECTION
+    ============================================================ */
+    .hero {
+      padding: 90px 0 70px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -120px;
+      left: -200px;
+      width: 700px;
+      height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(10,107,232,.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: -80px;
+      right: -150px;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(45,228,182,.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Hero Left */
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      padding: .35rem .9rem;
+      border-radius: var(--radius-pill);
+      background: rgba(45,228,182,.1);
+      border: 1px solid rgba(45,228,182,.25);
+      font-size: .75rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-bottom: 1.4rem;
+    }
+    .hero-badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50% { opacity: .5; transform: scale(1.4); }
+    }
+    .hero-title {
+      font-size: clamp(2.4rem, 5vw, 3.6rem);
+      font-weight: 900;
+      line-height: 1.08;
+      color: var(--text-white);
+      letter-spacing: -.02em;
+      margin-bottom: 1.4rem;
+    }
+    .hero-title .accent-word {
+      background: linear-gradient(90deg, var(--accent) 0%, #5ff5d6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-desc {
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      max-width: 460px;
+      margin-bottom: 2.2rem;
+      line-height: 1.7;
+    }
+    .hero-cta { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+    .hero-stats {
+      display: flex;
+      gap: 2.5rem;
+      margin-top: 2.8rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+    .hero-stat-num {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--text-white);
+      line-height: 1;
+    }
+    .hero-stat-num span { color: var(--accent); }
+    .hero-stat-label {
+      font-size: .78rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-top: .3rem;
+    }
+
+    /* Hero Right – Heart Health Visual */
+    .hero-visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .heart-container {
+      position: relative;
+      width: 360px;
+      height: 360px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .heart-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      animation: ring-spin linear infinite;
+    }
+    .heart-ring:nth-child(1) {
+      width: 340px; height: 340px;
+      border-color: rgba(45,228,182,.12);
+      animation-duration: 28s;
+    }
+    .heart-ring:nth-child(2) {
+      width: 280px; height: 280px;
+      border: 1px dashed rgba(45,228,182,.18);
+      animation-duration: 20s;
+      animation-direction: reverse;
+    }
+    .heart-ring:nth-child(3) {
+      width: 220px; height: 220px;
+      border-color: rgba(45,228,182,.22);
+      animation-duration: 14s;
+    }
+    @keyframes ring-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+    .heart-dot {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 10px var(--accent);
+    }
+    .heart-dot-1 { top: 0; left: 50%; transform: translate(-50%, 0); }
+    .heart-dot-2 { right: 0; top: 50%; transform: translate(0,-50%); }
+    .heart-dot-3 { bottom: 0; left: 50%; transform: translate(-50%,0); }
+    .heart-dot-4 { left: 0; top: 50%; transform: translate(0,-50%); }
+
+    .heart-core {
+      position: relative;
+      z-index: 2;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #0d1f3c, #081322);
+      border: 1px solid var(--border-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: .5rem;
+      box-shadow: 0 0 60px var(--accent-glow-lg), var(--shadow-card);
+    }
+    .heart-svg {
+      animation: heartbeat 1.4s ease-in-out infinite;
+    }
+    @keyframes heartbeat {
+      0%,100% { transform: scale(1); }
+      14%     { transform: scale(1.14); }
+      28%     { transform: scale(1); }
+      42%     { transform: scale(1.08); }
+      70%     { transform: scale(1); }
+    }
+
+    /* ECG line mini */
+    .ecg-line {
+      width: 90px;
+      height: 28px;
+      overflow: visible;
+    }
+    .ecg-path {
+      fill: none;
+      stroke: var(--accent);
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 200;
+      stroke-dashoffset: 200;
+      animation: ecg-draw 1.8s ease-in-out infinite;
+    }
+    @keyframes ecg-draw {
+      0%   { stroke-dashoffset: 200; opacity: 1; }
+      75%  { stroke-dashoffset: 0;   opacity: 1; }
+      90%  { stroke-dashoffset: 0;   opacity: .4; }
+      100% { stroke-dashoffset: 200; opacity: 0; }
+    }
+
+    /* floating cards around the heart */
+    .float-card {
+      position: absolute;
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: .6rem .9rem;
+      display: flex;
+      align-items: center;
+      gap: .55rem;
+      font-size: .78rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      white-space: nowrap;
+      box-shadow: var(--shadow-card);
+      animation: float-anim 4s ease-in-out infinite;
+    }
+    .float-card-icon { font-size: 1.1rem; }
+    .float-card-sub { font-size: .66rem; color: var(--text-muted); font-weight: 400; }
+    .float-card-1 { top: 30px; right: -10px; animation-delay: 0s; }
+    .float-card-2 { bottom: 50px; right: -20px; animation-delay: 1s; }
+    .float-card-3 { bottom: 30px; left: -10px; animation-delay: 2s; }
+    @keyframes float-anim {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-8px); }
+    }
+
+    /* ============================================================
+       SEARCH BAR
+    ============================================================ */
+    .search-section {
+      padding: 0 0 60px;
+      position: relative;
+      z-index: 2;
+    }
+    .search-wrapper {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-xl);
+      padding: .4rem .4rem .4rem 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      box-shadow: 0 8px 40px rgba(0,0,0,.4), 0 0 0 1px rgba(45,228,182,.05);
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+    .search-wrapper:focus-within {
+      border-color: var(--accent);
+      box-shadow: 0 8px 40px rgba(0,0,0,.4), 0 0 0 3px var(--accent-glow);
+    }
+    .search-icon { color: var(--text-muted); flex-shrink: 0; font-size: 1.15rem; }
+    .search-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--text-primary);
+      font-family: var(--font);
+      font-size: 1rem;
+      padding: .7rem 0;
+    }
+    .search-input::placeholder { color: var(--text-muted); }
+    .search-divider {
+      width: 1px;
+      height: 28px;
+      background: var(--border-light);
+      flex-shrink: 0;
+    }
+    .search-filter {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--text-secondary);
+      font-family: var(--font);
+      font-size: .88rem;
+      padding: .5rem .8rem;
+      cursor: pointer;
+      border-radius: var(--radius-sm);
+      transition: color var(--transition);
+    }
+    .search-filter:hover { color: var(--accent); }
+    option { background: var(--bg-card); }
+
+    /* ============================================================
+       SECTION SHARED
+    ============================================================ */
+    section { padding: 72px 0; }
+    section:nth-child(even) { background: rgba(10,22,40,.5); }
+
+    /* ============================================================
+       DOCTORS GRID
+    ============================================================ */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .doctor-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.8rem 1.6rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .doctor-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      transform: scaleX(0);
+      transition: transform var(--transition);
+    }
+    .doctor-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--border-light);
+      box-shadow: 0 16px 48px rgba(0,0,0,.5), 0 0 0 1px rgba(45,228,182,.1);
+    }
+    .doctor-card:hover::before { transform: scaleX(1); }
+
+    .avatar-wrap {
+      position: relative;
+      margin-bottom: 1.2rem;
+    }
+    .avatar {
+      width: 86px;
+      height: 86px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, var(--bg-surface), var(--border-light));
+      border: 2.5px solid var(--border-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      transition: border-color var(--transition);
+      overflow: hidden;
+    }
+    .doctor-card:hover .avatar { border-color: var(--accent); }
+    .avatar-badge {
+      position: absolute;
+      bottom: 2px;
+      right: 2px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #22c55e;
+      border: 2px solid var(--bg-card);
+    }
+
+    .doctor-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-white);
+      margin-bottom: .25rem;
+    }
+    .doctor-spec {
+      font-size: .82rem;
+      color: var(--accent);
+      font-weight: 600;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      margin-bottom: .9rem;
+    }
+    .stars {
+      display: flex;
+      gap: 3px;
+      justify-content: center;
+      margin-bottom: .35rem;
+    }
+    .star {
+      font-size: .9rem;
+      color: var(--star-off);
+      transition: color var(--transition);
+    }
+    .star.on { color: var(--star-on); }
+    .rating-text {
+      font-size: .78rem;
+      color: var(--text-muted);
+      margin-bottom: 1.3rem;
+    }
+
+    /* ============================================================
+       SERVICES GRID
+    ============================================================ */
+    .service-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2rem 1.8rem;
+      transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+      cursor: default;
+    }
+    .service-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(45,228,182,.3);
+      box-shadow: 0 12px 40px rgba(0,0,0,.4), 0 0 0 1px rgba(45,228,182,.08);
+    }
+    .service-icon-wrap {
+      width: 58px;
+      height: 58px;
+      border-radius: var(--radius-md);
+      background: var(--accent-glow);
+      border: 1px solid rgba(45,228,182,.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.7rem;
+      margin-bottom: 1.2rem;
+      transition: background var(--transition), box-shadow var(--transition);
+    }
+    .service-card:hover .service-icon-wrap {
+      background: rgba(45,228,182,.22);
+      box-shadow: 0 0 20px var(--accent-glow);
+    }
+    .service-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-white);
+      margin-bottom: .6rem;
+    }
+    .service-desc {
+      font-size: .88rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      margin-bottom: 1.3rem;
+    }
+    .service-link {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      color: var(--accent);
+      font-size: .85rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: gap var(--transition);
+    }
+    .service-link:hover { gap: .6rem; }
+
+    /* ============================================================
+       APPOINTMENT SCHEDULER
+    ============================================================ */
+    .appt-section {
+      padding: 56px 0;
+    }
+    .appt-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-xl);
+      padding: 2.4rem 2.8rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .appt-box::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(10,107,232,.07) 0%, rgba(45,228,182,.05) 100%);
+      pointer-events: none;
+    }
+    .appt-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      gap: 1.2rem;
+      align-items: flex-end;
+      flex-wrap: wrap;
+    }
+    .appt-heading { flex-basis: 100%; margin-bottom: .5rem; }
+    .appt-heading h2 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--text-white);
+    }
+    .appt-heading p {
+      color: var(--text-secondary);
+      font-size: .88rem;
+      margin-top: .3rem;
+    }
+    .appt-field { display: flex; flex-direction: column; gap: .45rem; flex: 1; min-width: 180px; }
+    .appt-label {
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .appt-select {
+      background: var(--bg-input);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      color: var(--text-primary);
+      font-family: var(--font);
+      font-size: .92rem;
+      padding: .75rem 1rem;
+      outline: none;
+      cursor: pointer;
+      transition: border-color var(--transition), box-shadow var(--transition);
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237a9cc8' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      padding-right: 2.5rem;
+    }
+    .appt-select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+    .appt-input {
+      background: var(--bg-input);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      color: var(--text-primary);
+      font-family: var(--font);
+      font-size: .92rem;
+      padding: .75rem 1rem;
+      outline: none;
+      transition: border-color var(--transition), box-shadow var(--transition);
+      width: 100%;
+    }
+    .appt-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+    .appt-book-btn {
+      align-self: flex-end;
+      padding: .78rem 2rem;
+    }
+
+    /* ============================================================
+       SOCIAL PROOF + SUPPORT
+    ============================================================ */
+    .proof-support-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    /* Testimonials */
+    .testimonials-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      overflow: hidden;
+    }
+    .testi-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.6rem;
+    }
+    .testi-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-white);
+    }
+    .testi-nav { display: flex; gap: .5rem; }
+    .testi-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text-secondary);
+      font-size: .85rem;
+      transition: all var(--transition);
+    }
+    .testi-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    .testi-slider { position: relative; }
+    .testi-slide { display: none; }
+    .testi-slide.active { display: block; }
+    .testi-quote {
+      font-size: .95rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 1.2rem;
+      font-style: italic;
+      position: relative;
+      padding-left: 1.2rem;
+    }
+    .testi-quote::before {
+      content: '"';
+      position: absolute;
+      left: 0;
+      top: -.2rem;
+      font-size: 2rem;
+      color: var(--accent);
+      opacity: .5;
+      line-height: 1;
+    }
+    .testi-author { display: flex; align-items: center; gap: .75rem; }
+    .testi-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue-mid), var(--accent));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .testi-name { font-size: .9rem; font-weight: 700; color: var(--text-white); }
+    .testi-role { font-size: .76rem; color: var(--text-muted); }
+    .testi-stars { display: flex; gap: 2px; margin-top: .3rem; }
+    .testi-star { font-size: .75rem; color: var(--star-on); }
+
+    .testi-dots { display: flex; gap: .45rem; justify-content: center; margin-top: 1.4rem; }
+    .testi-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--border-light);
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+    .testi-dot.active { background: var(--accent); width: 20px; border-radius: 4px; }
+
+    /* Support Box */
+    .support-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+    }
+    .support-header { margin-bottom: 1.6rem; }
+    .support-title { font-size: 1.1rem; font-weight: 700; color: var(--text-white); margin-bottom: .35rem; }
+    .support-sub { font-size: .85rem; color: var(--text-secondary); }
+    .support-actions { display: flex; flex-direction: column; gap: .9rem; }
+    .support-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.2rem;
+      border-radius: var(--radius-md);
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: all var(--transition);
+      text-decoration: none;
+    }
+    .support-item:hover {
+      border-color: var(--accent);
+      background: rgba(45,228,182,.05);
+      transform: translateX(4px);
+    }
+    .support-item-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .icon-call  { background: rgba(34,197,94,.12);  border: 1px solid rgba(34,197,94,.2); }
+    .icon-chat  { background: rgba(59,130,246,.12); border: 1px solid rgba(59,130,246,.2); }
+    .icon-email { background: rgba(168,85,247,.12); border: 1px solid rgba(168,85,247,.2); }
+    .support-item-text { flex: 1; }
+    .support-item-label { font-size: .88rem; font-weight: 700; color: var(--text-white); }
+    .support-item-detail { font-size: .76rem; color: var(--text-muted); margin-top: .15rem; }
+    .support-item-arrow { color: var(--text-muted); font-size: .85rem; transition: color var(--transition); }
+    .support-item:hover .support-item-arrow { color: var(--accent); }
+
+    /* ============================================================
+       FOOTER NAV
+    ============================================================ */
+    .footer-nav {
+      background: #030b18;
+      border-top: 1px solid var(--border);
+      padding: 1.4rem 0;
+    }
+    .footer-nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .footer-links { display: flex; gap: 1.8rem; flex-wrap: wrap; }
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: .82rem;
+      transition: color var(--transition);
+    }
+    .footer-links a:hover { color: var(--accent); }
+    .footer-copy {
+      font-size: .8rem;
+      color: var(--text-muted);
+    }
+    .footer-copy span { color: var(--text-secondary); }
+
+    /* ============================================================
+       UTILITIES
+    ============================================================ */
+    .glow-line {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: .25;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════
+       HEADER
+  ══════════════════════════════════════════ -->
+  <header>
+    <div class="container">
+      <div class="nav-inner">
+
+        <!-- Logo -->
+        <a href="#" class="logo" aria-label="Lim Health Clinic Home">
+          <div class="logo-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <path d="M12 21C12 21 3 14.5 3 8.5C3 5.42 5.42 3 8.5 3C10.24 3 11.91 3.81 13 5.08C14.09 3.81 15.76 3 17.5 3C20.58 3 23 5.42 23 8.5C23 14.5 12 21 12 21Z" fill="url(#hg)" stroke="none"/>
+              <defs>
+                <linearGradient id="hg" x1="3" y1="3" x2="23" y2="21">
+                  <stop stop-color="#0a6be8"/>
+                  <stop offset="1" stop-color="#2de4b6"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <div class="logo-text">
+            <strong>Lim Health</strong>
+            <span>Clinic</span>
+          </div>
+        </a>
+
+        <!-- Nav Links -->
+        <nav aria-label="Main navigation">
+          <a href="#hero" class="active">Home</a>
+          <a href="#services">Services</a>
+          <a href="#doctors">Doctors</a>
+          <a href="#about">About Us</a>
+          <a href="#contact">Contact</a>
+        </nav>
+
+        <!-- Login CTA -->
+        <a href="#" class="btn btn-outline btn-sm" aria-label="Login to your account">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+          Login
+        </a>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- ══════════════════════════════════════════
+       HERO
+  ══════════════════════════════════════════ -->
+  <section class="hero" id="hero" aria-labelledby="hero-heading">
+    <div class="container">
+      <div class="hero-inner">
+
+        <!-- Left -->
+        <div>
+          <div class="hero-badge" aria-label="Trusted Healthcare Platform">
+            <span class="hero-badge-dot" aria-hidden="true"></span>
+            Trusted Healthcare Platform
+          </div>
+
+          <h1 class="hero-title" id="hero-heading">
+            YOUR HEALTH,<br>
+            <span class="accent-word">OUR PRIORITY</span>
+          </h1>
+
+          <p class="hero-desc">
+            Experience modern, compassionate care from a team of dedicated specialists. Book appointments, connect with doctors, and manage your health — all in one place.
+          </p>
+
+          <div class="hero-cta">
+            <a href="#appointment" class="btn btn-primary btn-lg" aria-label="Get started with booking">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+              GET STARTED
+            </a>
+            <a href="#services" class="btn btn-ghost btn-lg">
+              Our Services
+            </a>
+          </div>
+
+          <div class="hero-stats" role="list" aria-label="Clinic statistics">
+            <div role="listitem">
+              <div class="hero-stat-num">12<span>K+</span></div>
+              <div class="hero-stat-label">Patients Treated</div>
+            </div>
+            <div role="listitem">
+              <div class="hero-stat-num">48<span>+</span></div>
+              <div class="hero-stat-label">Specialist Doctors</div>
+            </div>
+            <div role="listitem">
+              <div class="hero-stat-num">4.9<span>★</span></div>
+              <div class="hero-stat-label">Average Rating</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right – Heart Visual -->
+        <div class="hero-visual" aria-hidden="true">
+          <div class="heart-container">
+            <div class="heart-ring"></div>
+            <div class="heart-ring"></div>
+            <div class="heart-ring"></div>
+            <span class="heart-dot heart-dot-1"></span>
+            <span class="heart-dot heart-dot-2"></span>
+            <span class="heart-dot heart-dot-3"></span>
+            <span class="heart-dot heart-dot-4"></span>
+
+            <div class="heart-core">
+              <!-- Heart SVG -->
+              <div class="heart-svg">
+                <svg width="52" height="46" viewBox="0 0 52 46" fill="none">
+                  <path d="M26 44S3 28 3 14.5C3 8.15 8.15 3 14.5 3C18.5 3 22.05 4.97 24.5 8.01C26.95 4.97 30.5 3 34.5 3C40.85 3 46 8.15 46 14.5C46 28 23 44 26 44Z"
+                    fill="url(#heartFill)" stroke="url(#heartStroke)" stroke-width="1.5"/>
+                  <defs>
+                    <linearGradient id="heartFill" x1="3" y1="3" x2="46" y2="44">
+                      <stop stop-color="#0a6be8" stop-opacity=".5"/>
+                      <stop offset="1" stop-color="#2de4b6" stop-opacity=".6"/>
+                    </linearGradient>
+                    <linearGradient id="heartStroke" x1="3" y1="3" x2="46" y2="44">
+                      <stop stop-color="#0a6be8"/>
+                      <stop offset="1" stop-color="#2de4b6"/>
+                    </linearGradient>
+                  </defs>
+                </svg>
+              </div>
+              <!-- ECG line -->
+              <svg class="ecg-line" viewBox="0 0 90 28" aria-hidden="true">
+                <polyline class="ecg-path" points="0,14 15,14 22,4 28,24 34,4 40,24 46,14 60,14 67,8 72,14 90,14"/>
+              </svg>
+            </div>
+
+            <!-- Floating info cards -->
+            <div class="float-card float-card-1" aria-hidden="true">
+              <span class="float-card-icon">🩺</span>
+              <div>
+                <div>Expert Doctors</div>
+                <div class="float-card-sub">48 Specialists Available</div>
+              </div>
+            </div>
+            <div class="float-card float-card-2" aria-hidden="true">
+              <span class="float-card-icon">📅</span>
+              <div>
+                <div>Easy Booking</div>
+                <div class="float-card-sub">Same-day Appointments</div>
+              </div>
+            </div>
+            <div class="float-card float-card-3" aria-hidden="true">
+              <span class="float-card-icon">🏥</span>
+              <div>
+                <div>24/7 Emergency</div>
+                <div class="float-card-sub">Always Here for You</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       SEARCH BAR
+  ══════════════════════════════════════════ -->
+  <div class="search-section" id="search" aria-label="Global search">
+    <div class="container">
+      <div class="search-wrapper" role="search">
+        <span class="search-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+          </svg>
+        </span>
+        <input
+          type="search"
+          class="search-input"
+          placeholder="Search doctor, service or clinic..."
+          aria-label="Search doctor, service or clinic"
+        />
+        <div class="search-divider" aria-hidden="true"></div>
+        <select class="search-filter" aria-label="Filter search by category">
+          <option>All Categories</option>
+          <option>Doctors</option>
+          <option>Services</option>
+          <option>Clinics</option>
+        </select>
+        <button class="btn btn-primary" style="border-radius:var(--radius-lg);padding:.65rem 1.4rem;" aria-label="Submit search">
+          Search
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       FEATURED DOCTORS
+  ══════════════════════════════════════════ -->
+  <section id="doctors" aria-labelledby="doctors-heading">
+    <div class="container">
+      <div class="section-head">
+        <p class="section-label">Our Team</p>
+        <h2 class="section-title" id="doctors-heading">Featured Doctors</h2>
+        <p class="section-sub">Meet our board-certified specialists committed to delivering world-class patient care.</p>
+      </div>
+
+      <div class="grid-3" role="list" aria-label="Featured doctors">
+
+        <!-- Doctor Card 1 -->
+        <article class="doctor-card" role="listitem">
+          <div class="avatar-wrap">
+            <div class="avatar" aria-label="Doctor avatar">👩‍⚕️</div>
+            <span class="avatar-badge" aria-label="Online" title="Available"></span>
+          </div>
+          <div class="doctor-name">Dr. Sarah Mitchell</div>
+          <div class="doctor-spec">Cardiologist</div>
+          <div class="stars" role="img" aria-label="Rating: 4 out of 5 stars">
+            <span class="star on" aria-hidden="true">★</span>
+            <span class="star on" aria-hidden="true">★</span>
+            <span class="star on" aria-hidden="true">★</span>
+            <span class="star on" aria-hidden="true">★</span>
+            <span class="star" aria-hidden="true">★</span>
+          </div>
+          <div class="rating-text">4.0 / 5.0 &nbsp;·&nbsp; 312 reviews</div>
+          <a href="#" class="btn btn-outline btn-sm" style="width:100%;justify-content:center;" aria-label="View Dr. Sarah Mitchell's profile">
+            VIEW PROFILE
+          </a>
+        </article>
+
+        <!-- Doctor Card 2 -->
+        <article class="doctor-card" role="listitem">
+          <div class="avatar-wrap">
+            <div class="avatar" aria-label="Doctor avatar">👨‍⚕️</div>
+            <span class="avatar-badge" aria-label="Online" title="Available"></span>
+          </div>
+          <div class="doctor-name">Dr. James Olusegun</div>
+          <div class="doctor-spec">Neurologist</div>
+          <div class="stars" role="img" aria-label="Rating: 4 out of 5 stars">
+            <span class="star on" aria-hidden="true">★</span>
+            <span class="star on" aria-hidden="true">★</span>
+            <span class="star on" aria-hidden="true">★</span>
+            <span class="star on" aria-hidden="true">★</span>
+            <span class="star" aria-hidden="true">★</span>
+          </div>
+          <div class="rating-text">4.0 / 5.0 &nbsp;·&nbsp; 278 reviews</div>
+          <a href="#" class="btn btn-outline btn-sm" style="width:100%;justify-content:center;" aria-label="View Dr. James Olusegun's profile">
+            VIEW PROFILE
+          </a>
+        </article>
+
+        <!-- Doctor Card 3 -->
+        <article class="doctor-card" role="listitem">
+          <div class="avatar-wrap">
+            <div class="avatar" aria-label="Doctor avatar">👩‍⚕️</div>
+            <span class="avatar-badge" aria-label="Online" title="Available"></span>
+          </div>
+          <div class="doctor-name">Dr. Priya Sharma</div>
+          <div class="doctor-spec">Pediatrician</div>
+          <div class="stars" role="img" aria-label="Rating: 4 out of 5 stars">
+            <span class="star on" aria-hidden="true">★</span>
+            <span class="star on" aria-hidden="true">★</span>
+            <span class="star on" aria-hidden="true">★</span>
+            <span class="star on" aria-hidden="true">★</span>
+            <span class="star" aria-hidden="true">★</span>
+          </div>
+          <div class="rating-text">4.0 / 5.0 &nbsp;·&nbsp; 195 reviews</div>
+          <a href="#" class="btn btn-outline btn-sm" style="width:100%;justify-content:center;" aria-label="View Dr. Priya Sharma's profile">
+            VIEW PROFILE
+          </a>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="glow-line"></div>
+
+  <!-- ══════════════════════════════════════════
+       SERVICES
+  ══════════════════════════════════════════ -->
+  <section id="services" aria-labelledby="services-heading">
+    <div class="container">
+      <div class="section-head">
+        <p class="section-label">What We Offer</p>
+        <h2 class="section-title" id="services-heading">Our Services</h2>
+        <p class="section-sub">From routine checkups to advanced diagnostics, we provide comprehensive care tailored to your needs.</p>
+      </div>
+
+      <div class="grid-3" role="list" aria-label="Available services">
+
+        <!-- Service 1 -->
+        <article class="service-card" role="listitem">
+          <div class="service-icon-wrap" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2de4b6" stroke-width="1.8" stroke-linecap="round">
+              <path d="M4.5 12.5c1-1 2.5-1.5 4-1.5s3 .5 4 1.5c1 1 1.5 2.5 1.5 4s-.5 3-1.5 4"/>
+              <circle cx="12" cy="7" r="3"/>
+              <path d="M15 12c2-1 5 0 6 3"/>
+              <path d="M3 21c1-4 4-6 9-6"/>
+            </svg>
+          </div>
+          <h3 class="service-name">General Checkup</h3>
+          <p class="service-desc">Comprehensive health evaluations including vitals, blood work analysis, and full-body screenings performed by experienced practitioners.</p>
+          <a href="#" class="service-link" aria-label="Learn more about General Checkup">
+            Learn More
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </article>
+
+        <!-- Service 2 -->
+        <article class="service-card" role="listitem">
+          <div class="service-icon-wrap" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2de4b6" stroke-width="1.8" stroke-linecap="round">
+              <path d="M9 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-2"/>
+              <rect x="9" y="1" width="6" height="4" rx="1"/>
+              <path d="M10 12l2 2 4-4"/>
+            </svg>
+          </div>
+          <h3 class="service-name">Lab Tests</h3>
+          <p class="service-desc">State-of-the-art diagnostic laboratory offering rapid turnaround on blood panels, urinalysis, cultures, and advanced molecular testing.</p>
+          <a href="#" class="service-link" aria-label="Learn more about Lab Tests">
+            Learn More
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </article>
+
+        <!-- Service 3 -->
+        <article class="service-card" role="listitem">
+          <div class="service-icon-wrap" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2de4b6" stroke-width="1.8" stroke-linecap="round">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <path d="M9 22V12h6v10"/>
+              <path d="M12 7v4M10 9h4"/>
+            </svg>
+          </div>
+          <h3 class="service-name">Emergency Care</h3>
+          <p class="service-desc">Round-the-clock emergency services staffed by trauma-trained physicians equipped to handle acute medical crises at any hour.</p>
+          <a href="#" class="service-link" aria-label="Learn more about Emergency Care">
+            Learn More
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="glow-line"></div>
+
+  <!-- ══════════════════════════════════════════
+       APPOINTMENT SCHEDULER
+  ══════════════════════════════════════════ -->
+  <section class="appt-section" id="appointment" aria-labelledby="appt-heading">
+    <div class="container">
+      <div class="appt-box">
+        <div class="appt-inner">
+
+          <div class="appt-heading">
+            <h2 id="appt-heading">Quick Appointment Scheduler</h2>
+            <p>Select your preferred date and doctor to book your slot in seconds.</p>
+          </div>
+
+          <div class="appt-field">
+            <label class="appt-label" for="appt-date">Select Date</label>
+            <input type="date" id="appt-date" class="appt-input" aria-label="Select appointment date" />
+          </div>
+
+          <div class="appt-field">
+            <label class="appt-label" for="appt-time">Select Time</label>
+            <select id="appt-time" class="appt-select" aria-label="Select appointment time slot">
+              <option value="">Choose Time Slot</option>
+              <option>08:00 AM – 09:00 AM</option>
+              <option>09:00 AM – 10:00 AM</option>
+              <option>10:00 AM – 11:00 AM</option>
+              <option>11:00 AM – 12:00 PM</option>
+              <option>02:00 PM – 03:00 PM</option>
+              <option>03:00 PM – 04:00 PM</option>
+              <option>04:00 PM – 05:00 PM</option>
+            </select>
+          </div>
+
+          <div class="appt-field">
+            <label class="appt-label" for="appt-doctor">Select Doctor</label>
+            <select id="appt-doctor" class="appt-select" aria-label="Select a doctor">
+              <option value="">Choose a Doctor</option>
+              <option>Dr. Sarah Mitchell – Cardiologist</option>
+              <option>Dr. James Olusegun – Neurologist</option>
+              <option>Dr. Priya Sharma – Pediatrician</option>
+              <option>Dr. Carlos Rivera – Orthopedic</option>
+              <option>Dr. Amina Diallo – Dermatologist</option>
+            </select>
+          </div>
+
+          <div class="appt-field">
+            <label class="appt-label" for="appt-service">Service Type</label>
+            <select id="appt-service" class="appt-select" aria-label="Select service type">
+              <option value="">Select Service</option>
+              <option>General Checkup</option>
+              <option>Lab Tests</option>
+              <option>Emergency Care</option>
+              <option>Consultation</option>
+              <option>Follow-up Visit</option>
+            </select>
+          </div>
+
+          <button class="btn btn-primary btn-lg appt-book-btn" aria-label="Book your appointment now">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" aria-hidden="true">
+              <rect x="3" y="4" width="18" height="18" rx="2"/>
+              <path d="M16 2v4M8 2v4M3 10h18M9 16l2 2 4-4"/>
+            </svg>
+            BOOK NOW
+          </button>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="glow-line"></div>
+
+  <!-- ══════════════════════════════════════════
+       SOCIAL PROOF + SUPPORT
+  ══════════════════════════════════════════ -->
+  <section id="about" aria-labelledby="proof-heading">
+    <div class="container">
+      <div class="section-head">
+        <p class="section-label">Community</p>
+        <h2 class="section-title" id="proof-heading">What Patients Say</h2>
+        <p class="section-sub">Real experiences from real patients — because your trust is our greatest achievement.</p>
+      </div>
+
+      <div class="proof-support-grid">
+
+        <!-- Testimonials Slider -->
+        <div class="testimonials-box" aria-label="Patient testimonials">
+          <div class="testi-header">
+            <h3 class="testi-title">Patient Reviews</h3>
+            <div class="testi-nav" role="group" aria-label="Testimonial navigation">
+              <button class="testi-btn" id="testi-prev" aria-label="Previous testimonial">&#8592;</button>
+              <button class="testi-btn" id="testi-next" aria-label="Next testimonial">&#8594;</button>
+            </div>
+          </div>
+
+          <div class="testi-slider" aria-live="polite" aria-atomic="true">
+
+            <div class="testi-slide active" role="region" aria-label="Testimonial 1 of 3">
+              <p class="testi-quote">
+                The doctors at Lim Health Clinic are incredibly attentive and professional. From my first visit, I felt genuinely cared for. The online booking system is seamless and the staff is warm and welcoming.
+              </p>
+              <div class="testi-author">
+                <div class="testi-avatar" aria-hidden="true">👩</div>
+                <div>
+                  <div class="testi-name">Angela Thompson</div>
+                  <div class="testi-role">Patient · Cardiology</div>
+                  <div class="testi-stars" role="img" aria-label="5 star rating">
+                    <span class="testi-star">★</span><span class="testi-star">★</span>
+                    <span class="testi-star">★</span><span class="testi-star">★</span>
+                    <span class="testi-star">★</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="testi-slide" role="region" aria-label="Testimonial 2 of 3">
+              <p class="testi-quote">
+                Outstanding experience! Dr. Olusegun took time to explain everything clearly. The lab results came back within hours. I highly recommend this clinic to anyone looking for top-notch healthcare.
+              </p>
+              <div class="testi-author">
+                <div class="testi-avatar" aria-hidden="true">👨</div>
+                <div>
+                  <div class="testi-name">Marcus Adeyemi</div>
+                  <div class="testi-role">Patient · Neurology</div>
+                  <div class="testi-stars" role="img" aria-label="5 star rating">
+                    <span class="testi-star">★</span><span class="testi-star">★</span>
+                    <span class="testi-star">★</span><span class="testi-star">★</span>
+                    <span class="testi-star">★</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="testi-slide" role="region" aria-label="Testimonial 3 of 3">
+              <p class="testi-quote">
+                My daughter has been under Dr. Sharma's care for two years. The pediatric team is exceptional — patient, thorough, and always available when we have concerns. Best clinic in the city.
+              </p>
+              <div class="testi-author">
+                <div class="testi-avatar" aria-hidden="true">👩</div>
+                <div>
+                  <div class="testi-name">Isabelle Morel</div>
+                  <div class="testi-role">Parent · Pediatrics</div>
+                  <div class="testi-stars" role="img" aria-label="5 star rating">
+                    <span class="testi-star">★</span><span class="testi-star">★</span>
+                    <span class="testi-star">★</span><span class="testi-star">★</span>
+                    <span class="testi-star">★</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="testi-dots" role="tablist" aria-label="Select testimonial">
+            <span class="testi-dot active" role="tab" aria-selected="true" aria-label="Testimonial 1" tabindex="0"></span>
+            <span class="testi-dot" role="tab" aria-selected="false" aria-label="Testimonial 2" tabindex="0"></span>
+            <span class="testi-dot" role="tab" aria-selected="false" aria-label="Testimonial 3" tabindex="0"></span>
+          </div>
+        </div>
+
+        <!-- Support Box -->
+        <div class="support-box" id="contact" aria-labelledby="support-heading">
+          <div class="support-header">
+            <h3 class="support-title" id="support-heading">Contact / Support</h3>
+            <p class="support-sub">We're here to help 24/7. Reach out through your preferred channel.</p>
+          </div>
+
+          <div class="support-actions" role="list" aria-label="Contact options">
+
+            <a href="tel:+18001234567" class="support-item" role="listitem" aria-label="Call us at 1-800-123-4567">
+              <div class="support-item-icon icon-call" aria-hidden="true">📞</div>
+              <div class="support-item-text">
+                <div class="support-item-label">Call Us</div>
+                <div class="support-item-detail">1-800-LIM-HEALTH &nbsp;·&nbsp; 24/7 Available</div>
+              </div>
+              <span class="support-item-arrow" aria-hidden="true">→</span>
+            </a>
+
+            <a href="#" class="support-item" role="listitem" aria-label="Start a live chat">
+              <div class="support-item-icon icon-chat" aria-hidden="true">💬</div>
+              <div class="support-item-text">
+                <div class="support-item-label">Live Chat</div>
+                <div class="support-item-detail">Average response &lt; 2 minutes</div>
+              </div>
+              <span class="support-item-arrow" aria-hidden="true">→</span>
+            </a>
+
+            <a href="mailto:support@limhealth.com" class="support-item" role="listitem" aria-label="Send us an email">
+              <div class="support-item-icon icon-email" aria-hidden="true">✉️</div>
+              <div class="support-item-text">
+                <div class="support-item-label">Email Support</div>
+                <div class="support-item-detail">support@limhealth.com</div>
+              </div>
+              <span class="support-item-arrow" aria-hidden="true">→</span>
+            </a>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       GLOBAL FOOTER
+  ══════════════════════════════════════════ -->
+  <footer class="footer-nav" role="contentinfo">
+    <div class="container">
+      <div class="footer-nav-inner">
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="#about">About Us</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms &amp; Conditions</a>
+          <a href="#">Accessibility</a>
+        </nav>
+        <p class="footer-copy">
+          &copy; 2026 <span>Lim Health Clinic</span>. All rights reserved.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ══════════════════════════════════════════
+       JAVASCRIPT
+  ══════════════════════════════════════════ -->
+  <script>
+    /* ─── Testimonial Slider ─── */
+    (function () {
+      const slides = document.querySelectorAll('.testi-slide');
+      const dots   = document.querySelectorAll('.testi-dot');
+      let current  = 0;
+      let autoTimer;
+
+      function goTo(index) {
+        slides[current].classList.remove('active');
+        dots[current].classList.remove('active');
+        dots[current].setAttribute('aria-selected', 'false');
+        current = (index + slides.length) % slides.length;
+        slides[current].classList.add('active');
+        dots[current].classList.add('active');
+        dots[current].setAttribute('aria-selected', 'true');
+      }
+
+      function startAuto() {
+        autoTimer = setInterval(() => goTo(current + 1), 5000);
+      }
+      function resetAuto() {
+        clearInterval(autoTimer);
+        startAuto();
+      }
+
+      document.getElementById('testi-next').addEventListener('click', () => { goTo(current + 1); resetAuto(); });
+      document.getElementById('testi-prev').addEventListener('click', () => { goTo(current - 1); resetAuto(); });
+
+      dots.forEach((dot, i) => {
+        dot.addEventListener('click',   () => { goTo(i); resetAuto(); });
+        dot.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { goTo(i); resetAuto(); } });
+      });
+
+      startAuto();
+    })();
+
+    /* ─── Active Nav Link on Scroll ─── */
+    (function () {
+      const sections = document.querySelectorAll('section[id], div[id]');
+      const navLinks = document.querySelectorAll('nav a');
+
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            navLinks.forEach(a => {
+              a.classList.remove('active');
+              if (a.getAttribute('href') === '#' + entry.target.id) {
+                a.classList.add('active');
+              }
+            });
+          }
+        });
+      }, { rootMargin: '-40% 0px -55% 0px' });
+
+      sections.forEach(s => observer.observe(s));
+    })();
+
+    /* ─── Book Now feedback ─── */
+    document.querySelector('.appt-book-btn').addEventListener('click', function () {
+      const date    = document.getElementById('appt-date').value;
+      const doctor  = document.getElementById('appt-doctor').value;
+      const service = document.getElementById('appt-service').value;
+
+      if (!date || !doctor || !service) {
+        this.style.background = '#e55';
+        this.textContent = '⚠ Please fill all fields';
+        setTimeout(() => {
+          this.style.background = '';
+          this.innerHTML = `
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" aria-hidden="true">
+              <rect x="3" y="4" width="18" height="18" rx="2"/>
+              <path d="M16 2v4M8 2v4M3 10h18M9 16l2 2 4-4"/>
+            </svg>
+            BOOK NOW`;
+        }, 2000);
+        return;
+      }
+
+      this.style.background = '#22c55e';
+      this.innerHTML = '✓ Appointment Booked!';
+      setTimeout(() => {
+        this.style.background = '';
+        this.innerHTML = `
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" aria-hidden="true">
+            <rect x="3" y="4" width="18" height="18" rx="2"/>
+            <path d="M16 2v4M8 2v4M3 10h18M9 16l2 2 4-4"/>
+          </svg>
+          BOOK NOW`;
+      }, 3000);
+    });
+  </script>
+
+</body>
+</html>

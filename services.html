@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lim Health Service — Services</title>
+  <link rel="stylesheet" href="services.css" />
+</head>
+<body>
+
+  <header class="header">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="main.html" class="logo">
+          <img src="images/logo.png" alt="Lim Health Service" class="logo-img" />
+        </a>
+        <nav class="main-nav">
+          <a href="main.html">Home</a>
+          <a href="services.html" class="active">Services</a>
+          <a href="doctors-detail.html">Doctors</a>
+          <a href="about-us.html">About Us</a>
+          <a href="main.html#contact">Contact</a>
+        </nav>
+        <div class="nav-actions">
+          <a href="auth.html" class="btn btn-outline">Login</a>
+          <a href="book-appointment.html" class="btn btn-primary">Book Now</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="container">
+      <p class="sec-label">Full-Spectrum Healthcare</p>
+      <h1 class="page-hero-title">Our <span class="gt">Services</span></h1>
+      <p class="page-hero-sub">From routine checkups to complex diagnostics — comprehensive care tailored to every stage of your health journey.</p>
+    </div>
+  </section>
+
+  <!-- FILTER BAR -->
+  <div class="filter-band">
+    <div class="container">
+      <div class="filter-wrap">
+        <button class="filter-btn active" data-filter="all">All Services</button>
+        <button class="filter-btn" data-filter="primary">Primary Care</button>
+        <button class="filter-btn" data-filter="diagnostic">Diagnostics</button>
+        <button class="filter-btn" data-filter="specialist">Specialist</button>
+        <button class="filter-btn" data-filter="emergency">Emergency</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVICES GRID -->
+  <section class="section" id="servicesGrid">
+    <div class="container">
+      <div class="svc-grid" id="svcGrid">
+
+        <article class="svc-card" data-cat="primary">
+          <div class="svc-img-wrap">
+            <img src="images/General Checkup.jpg" alt="General Checkup" class="svc-card-img" />
+          </div>
+          <div class="svc-icon-wrap">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/></svg>
+          </div>
+          <div class="svc-badge">Primary Care</div>
+          <h3 class="svc-title">General Checkup</h3>
+          <p class="svc-desc">Comprehensive annual wellness exams covering vitals, blood pressure, cholesterol, glucose, and full physical assessments. Our GPs provide preventive care guidance to keep you healthy year-round.</p>
+          <ul class="svc-list">
+            <li>Annual physical examinations</li>
+            <li>Blood pressure & glucose monitoring</li>
+            <li>Preventive care counseling</li>
+            <li>Immunization management</li>
+          </ul>
+          <div class="svc-meta">
+            <span class="svc-time">⏱ 45 – 60 min</span>
+            <span class="svc-price">From $60</span>
+          </div>
+          <a href="book-appointment.html?service=General+Checkup" class="btn btn-primary">Book This Service</a>
+        </article>
+
+        <article class="svc-card" data-cat="diagnostic">
+          <div class="svc-img-wrap">
+            <img src="images/Lab Test.jpg" alt="Laboratory Tests" class="svc-card-img" />
+          </div>
+          <div class="svc-icon-wrap">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="1.8" stroke-linecap="round"><path d="M9 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-2"/><rect x="9" y="1" width="6" height="4" rx="1"/><path d="M10 12l2 2 4-4"/></svg>
+          </div>
+          <div class="svc-badge">Diagnostics</div>
+          <h3 class="svc-title">Laboratory Tests</h3>
+          <p class="svc-desc">State-of-the-art diagnostic lab with rapid turnaround. We offer comprehensive blood panels, urinalysis, cultures, hormonal assays, and advanced molecular testing with same-day results.</p>
+          <ul class="svc-list">
+            <li>Full blood count & metabolic panel</li>
+            <li>Hormonal & thyroid profiling</li>
+            <li>Urinalysis & culture</li>
+            <li>PCR & molecular diagnostics</li>
+          </ul>
+          <div class="svc-meta">
+            <span class="svc-time">⏱ 15 – 30 min</span>
+            <span class="svc-price">From $35</span>
+          </div>
+          <a href="book-appointment.html?service=Lab+Tests" class="btn btn-primary">Book This Service</a>
+        </article>
+
+        <article class="svc-card" data-cat="emergency">
+          <div class="svc-img-wrap">
+            <img src="images/Emergency.jpg" alt="Emergency Care" class="svc-card-img" />
+          </div>
+          <div class="svc-icon-wrap">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="1.8" stroke-linecap="round"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><path d="M12 8v4M10 10h4"/></svg>
+          </div>
+          <div class="svc-badge emergency-badge">Emergency</div>
+          <h3 class="svc-title">Emergency Care</h3>
+          <p class="svc-desc">Round-the-clock emergency services staffed by trauma-trained physicians. Fully equipped acute care unit handling everything from cardiac events to severe injuries with immediate triage protocols.</p>
+          <ul class="svc-list">
+            <li>24/7 physician-staffed unit</li>
+            <li>Trauma & acute injury care</li>
+            <li>Cardiac & stroke response</li>
+            <li>On-site imaging & pharmacy</li>
+          </ul>
+          <div class="svc-meta">
+            <span class="svc-time">⏱ Immediate triage</span>
+            <span class="svc-price">Insurance accepted</span>
+          </div>
+          <a href="book-appointment.html?service=Emergency+Care" class="btn btn-primary">Walk-In Available</a>
+        </article>
+
+        <article class="svc-card" data-cat="specialist">
+          <div class="svc-icon-wrap">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="1.8" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <div class="svc-badge">Specialist</div>
+          <h3 class="svc-title">Cardiology</h3>
+          <p class="svc-desc">Expert cardiac care including ECG analysis, echocardiography, stress testing, and long-term heart disease management. Our cardiologists partner with you on prevention and recovery plans.</p>
+          <ul class="svc-list">
+            <li>ECG & Holter monitoring</li>
+            <li>Echocardiogram</li>
+            <li>Stress & nuclear testing</li>
+            <li>Hypertension management</li>
+          </ul>
+          <div class="svc-meta">
+            <span class="svc-time">⏱ 60 – 90 min</span>
+            <span class="svc-price">From $120</span>
+          </div>
+          <a href="book-appointment.html?service=Cardiology" class="btn btn-primary">Book This Service</a>
+        </article>
+
+        <article class="svc-card" data-cat="specialist">
+          <div class="svc-icon-wrap">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="1.8" stroke-linecap="round"><ellipse cx="12" cy="12" rx="10" ry="10"/><path d="M12 8v4l3 3"/></svg>
+          </div>
+          <div class="svc-badge">Specialist</div>
+          <h3 class="svc-title">Neurology</h3>
+          <p class="svc-desc">Comprehensive neurological evaluations for headaches, seizures, memory disorders, and nerve conditions. Including EEG, nerve conduction studies, and cognitive assessments.</p>
+          <ul class="svc-list">
+            <li>EEG & nerve conduction</li>
+            <li>Migraine management</li>
+            <li>Memory & cognitive assessment</li>
+            <li>Parkinson's & MS care</li>
+          </ul>
+          <div class="svc-meta">
+            <span class="svc-time">⏱ 60 – 90 min</span>
+            <span class="svc-price">From $130</span>
+          </div>
+          <a href="book-appointment.html?service=Neurology" class="btn btn-primary">Book This Service</a>
+        </article>
+
+        <article class="svc-card" data-cat="primary">
+          <div class="svc-icon-wrap">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="1.8" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div class="svc-badge">Primary Care</div>
+          <h3 class="svc-title">Pediatrics</h3>
+          <p class="svc-desc">Compassionate, child-focused care from newborns through adolescence. Covering immunizations, development tracking, school physicals, and management of common childhood illnesses.</p>
+          <ul class="svc-list">
+            <li>Well-child visits & vaccines</li>
+            <li>Growth & development tracking</li>
+            <li>Acute illness management</li>
+            <li>School & sports physicals</li>
+          </ul>
+          <div class="svc-meta">
+            <span class="svc-time">⏱ 30 – 45 min</span>
+            <span class="svc-price">From $70</span>
+          </div>
+          <a href="book-appointment.html?service=Pediatrics" class="btn btn-primary">Book This Service</a>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="sec-head">
+        <p class="sec-label">Process</p>
+        <h2 class="sec-title">How It Works</h2>
+        <p class="sec-sub">Getting care with Lim Health is simple, fast, and stress-free.</p>
+      </div>
+      <div class="steps-grid">
+        <div class="step-item">
+          <div class="step-num">01</div>
+          <h4>Choose Your Service</h4>
+          <p>Browse our full catalog of services and select the care type that fits your needs.</p>
+        </div>
+        <div class="step-arrow" aria-hidden="true">→</div>
+        <div class="step-item">
+          <div class="step-num">02</div>
+          <h4>Pick a Doctor & Slot</h4>
+          <p>Filter by specialty, availability, and rating to find your ideal physician and time.</p>
+        </div>
+        <div class="step-arrow" aria-hidden="true">→</div>
+        <div class="step-item">
+          <div class="step-num">03</div>
+          <h4>Confirm Booking</h4>
+          <p>Submit your booking and receive an instant confirmation via email and SMS.</p>
+        </div>
+        <div class="step-arrow" aria-hidden="true">→</div>
+        <div class="step-item">
+          <div class="step-num">04</div>
+          <h4>Attend & Follow Up</h4>
+          <p>Visit the clinic or connect virtually. Access your records and follow-up care from your profile.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="glow-line"></div>
+
+  <!-- CTA -->
+  <section class="cta-band">
+    <div class="container">
+      <h2>Need help choosing the right service?</h2>
+      <p>Our medical coordinators are available 24/7 to guide you to the right care.</p>
+      <div class="cta-btns">
+        <a href="book-appointment.html" class="btn btn-primary btn-lg">Book Appointment</a>
+        <a href="doctors-detail.html" class="btn btn-ghost btn-lg">Meet Our Doctors</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ══════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="main.html" class="logo">
+            <img src="images/logo.png" alt="Lim Health Service" class="logo-img footer-logo" />
+          </a>
+          <p>Providing compassionate, world-class healthcare to every patient, every day.</p>
+        </div>
+        <div class="footer-links-group">
+          <h4>Services</h4>
+          <a href="services.html">General Checkup</a>
+          <a href="services.html">Lab Tests</a>
+          <a href="services.html">Emergency Care</a>
+          <a href="services.html">Specialist Care</a>
+        </div>
+        <div class="footer-links-group">
+          <h4>Company</h4>
+          <a href="about-us.html">About Us</a>
+          <a href="doctors-detail.html">Our Doctors</a>
+          <a href="profile.html">My Profile</a>
+        </div>
+        <div class="footer-links-group">
+          <h4>Support</h4>
+          <a href="main.html#contact">Contact Us</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms &amp; Conditions</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <small class="footer-copy">&copy; 2026 Lim Health Service. All rights reserved.</small>
+      </div>
+    </div>
+  </footer>
+
+  <script src="services.js"></script>
+</body>
+</html>

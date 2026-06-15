@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lim Health Service — My Profile</title>
+  <link rel="stylesheet" href="profile.css" />
+</head>
+<body>
+
+  <header class="header">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="main.html" class="logo">
+          <img src="images/logo.png" alt="Lim Health Service" class="logo-img" />
+        </a>
+        <nav class="main-nav">
+          <a href="main.html">Home</a>
+          <a href="services.html">Services</a>
+          <a href="doctors-detail.html">Doctors</a>
+          <a href="about-us.html">About Us</a>
+        </nav>
+        <div class="nav-actions">
+          <a href="book-appointment.html" class="btn btn-primary">Book Appointment</a>
+          <button class="btn btn-ghost" id="logoutBtn">Logout</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="profile-main">
+    <div class="container">
+      <div class="profile-layout">
+
+        <!-- ── SIDEBAR ── -->
+        <aside class="profile-sidebar">
+          <div class="profile-card">
+            <div class="p-avatar-wrap">
+              <div class="p-avatar" aria-label="User avatar">👤</div>
+              <button class="p-avatar-edit" aria-label="Edit avatar" title="Change photo">✏️</button>
+            </div>
+            <h2 class="p-name" id="sidebarName">Sahr Kobba</h2>
+            <p class="p-email" id="sidebarEmail">sahr.kobba@example.com</p>
+            <div class="p-badge">Premium Member</div>
+            <div class="p-stats">
+              <div><span class="psn" data-target="8">0</span><small>Visits</small></div>
+              <div><span class="psn" data-target="3">0</span><small>Upcoming</small></div>
+              <div><span class="psn" data-target="5">0</span><small>Doctors</small></div>
+            </div>
+          </div>
+
+          <nav class="sidebar-nav" aria-label="Profile sections">
+            <a href="#overview" class="snav-link active" data-tab="overview">
+              <span>📊</span> Overview
+            </a>
+            <a href="#appointments" class="snav-link" data-tab="appointments">
+              <span>📅</span> Appointments
+            </a>
+            <a href="#records" class="snav-link" data-tab="records">
+              <span>📋</span> Medical Records
+            </a>
+            <a href="#prescriptions" class="snav-link" data-tab="prescriptions">
+              <span>💊</span> Prescriptions
+            </a>
+            <a href="#settings" class="snav-link" data-tab="settings">
+              <span>⚙️</span> Settings
+            </a>
+          </nav>
+        </aside>
+
+        <!-- ── MAIN CONTENT ── -->
+        <div class="profile-content">
+
+          <!-- OVERVIEW TAB -->
+          <div class="tab-panel active" id="tab-overview">
+            <h2 class="content-title">Dashboard Overview</h2>
+
+            <div class="overview-cards">
+              <div class="ov-card accent-card">
+                <div class="ov-icon">📅</div>
+                <div class="ov-label">Next Appointment</div>
+                <div class="ov-value">June 20, 2026</div>
+                <div class="ov-sub">Dr. Sarah Mitchell · 10:00 AM</div>
+              </div>
+              <div class="ov-card">
+                <div class="ov-icon">💊</div>
+                <div class="ov-label">Active Prescriptions</div>
+                <div class="ov-value">2</div>
+                <div class="ov-sub">Refill due in 12 days</div>
+              </div>
+              <div class="ov-card">
+                <div class="ov-icon">🩸</div>
+                <div class="ov-label">Last Lab Result</div>
+                <div class="ov-value">May 28</div>
+                <div class="ov-sub">All results normal ✓</div>
+              </div>
+              <div class="ov-card">
+                <div class="ov-icon">❤️</div>
+                <div class="ov-label">Health Score</div>
+                <div class="ov-value ov-green">87/100</div>
+                <div class="ov-sub">Good condition</div>
+              </div>
+            </div>
+
+            <!-- Health Progress Bars -->
+            <div class="health-metrics">
+              <h3 class="section-mini-title">Health Metrics</h3>
+              <div class="metric-row">
+                <div class="metric-label"><span>Blood Pressure</span><span class="metric-val">118/76</span></div>
+                <div class="metric-bar"><div class="metric-fill" style="width:82%;background:#22c55e"></div></div>
+              </div>
+              <div class="metric-row">
+                <div class="metric-label"><span>Blood Sugar</span><span class="metric-val">95 mg/dL</span></div>
+                <div class="metric-bar"><div class="metric-fill" style="width:72%;background:#10B981"></div></div>
+              </div>
+              <div class="metric-row">
+                <div class="metric-label"><span>Cholesterol</span><span class="metric-val">185 mg/dL</span></div>
+                <div class="metric-bar"><div class="metric-fill" style="width:65%;background:#f59e0b"></div></div>
+              </div>
+              <div class="metric-row">
+                <div class="metric-label"><span>BMI</span><span class="metric-val">22.4</span></div>
+                <div class="metric-bar"><div class="metric-fill" style="width:88%;background:#22c55e"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- APPOINTMENTS TAB -->
+          <div class="tab-panel" id="tab-appointments">
+            <div class="tab-header">
+              <h2 class="content-title">My Appointments</h2>
+              <a href="book-appointment.html" class="btn btn-primary btn-sm">+ New Booking</a>
+            </div>
+
+            <div class="appt-filter">
+              <button class="af-btn active" data-af="upcoming">Upcoming</button>
+              <button class="af-btn" data-af="past">Past</button>
+              <button class="af-btn" data-af="cancelled">Cancelled</button>
+            </div>
+
+            <div class="appt-list" id="apptList">
+
+              <div class="appt-item" data-status="upcoming">
+                <div class="appt-date-block">
+                  <span class="appt-day">20</span>
+                  <span class="appt-month">Jun</span>
+                </div>
+                <div class="appt-info">
+                  <h4>General Checkup</h4>
+                  <p>Dr. Sarah Mitchell · Cardiology</p>
+                  <p class="appt-time">📍 In-Person · 10:00 AM</p>
+                </div>
+                <div class="appt-actions-col">
+                  <span class="appt-status upcoming-status">Upcoming</span>
+                  <div class="appt-btns">
+                    <button class="btn btn-ghost btn-xs">Reschedule</button>
+                    <button class="btn btn-danger-ghost btn-xs">Cancel</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="appt-item" data-status="upcoming">
+                <div class="appt-date-block">
+                  <span class="appt-day">28</span>
+                  <span class="appt-month">Jun</span>
+                </div>
+                <div class="appt-info">
+                  <h4>Neurology Consultation</h4>
+                  <p>Dr. James Olusegun · Neurology</p>
+                  <p class="appt-time">💻 Virtual · 02:00 PM</p>
+                </div>
+                <div class="appt-actions-col">
+                  <span class="appt-status upcoming-status">Upcoming</span>
+                  <div class="appt-btns">
+                    <button class="btn btn-ghost btn-xs">Reschedule</button>
+                    <button class="btn btn-danger-ghost btn-xs">Cancel</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="appt-item" data-status="past">
+                <div class="appt-date-block past-block">
+                  <span class="appt-day">15</span>
+                  <span class="appt-month">May</span>
+                </div>
+                <div class="appt-info">
+                  <h4>Lab Tests — Blood Panel</h4>
+                  <p>Lim Health Lab Center</p>
+                  <p class="appt-time">📍 In-Person · 09:00 AM</p>
+                </div>
+                <div class="appt-actions-col">
+                  <span class="appt-status past-status">Completed</span>
+                  <button class="btn btn-ghost btn-xs">View Results</button>
+                </div>
+              </div>
+
+              <div class="appt-item" data-status="cancelled">
+                <div class="appt-date-block cancelled-block">
+                  <span class="appt-day">02</span>
+                  <span class="appt-month">Apr</span>
+                </div>
+                <div class="appt-info">
+                  <h4>Pediatrics Visit</h4>
+                  <p>Dr. Priya Sharma · Pediatrics</p>
+                  <p class="appt-time">📍 In-Person · 11:00 AM</p>
+                </div>
+                <div class="appt-actions-col">
+                  <span class="appt-status cancelled-status">Cancelled</span>
+                  <a href="book-appointment.html" class="btn btn-ghost btn-xs">Re-book</a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- RECORDS TAB -->
+          <div class="tab-panel" id="tab-records">
+            <h2 class="content-title">Medical Records</h2>
+            <div class="records-list">
+              <div class="record-item">
+                <div class="rec-icon">🩺</div>
+                <div class="rec-info"><h4>Annual Physical — 2026</h4><p>Dr. Sarah Mitchell · May 15, 2026</p></div>
+                <button class="btn btn-ghost btn-xs">Download PDF</button>
+              </div>
+              <div class="record-item">
+                <div class="rec-icon">🧪</div>
+                <div class="rec-info"><h4>Blood Panel Results</h4><p>Lim Lab Center · May 15, 2026</p></div>
+                <button class="btn btn-ghost btn-xs">Download PDF</button>
+              </div>
+              <div class="record-item">
+                <div class="rec-icon">📷</div>
+                <div class="rec-info"><h4>Chest X-Ray Report</h4><p>Radiology Dept. · March 10, 2026</p></div>
+                <button class="btn btn-ghost btn-xs">Download PDF</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- PRESCRIPTIONS TAB -->
+          <div class="tab-panel" id="tab-prescriptions">
+            <h2 class="content-title">Prescriptions</h2>
+            <div class="presc-list">
+              <div class="presc-item">
+                <div class="presc-icon">💊</div>
+                <div class="presc-info">
+                  <h4>Atorvastatin 20mg</h4>
+                  <p>1 tablet daily · Dr. Sarah Mitchell</p>
+                  <p class="presc-date">Issued: May 15, 2026 · Expires: Nov 15, 2026</p>
+                </div>
+                <span class="presc-status active-presc">Active</span>
+              </div>
+              <div class="presc-item">
+                <div class="presc-icon">💊</div>
+                <div class="presc-info">
+                  <h4>Lisinopril 10mg</h4>
+                  <p>1 tablet morning · Dr. Sarah Mitchell</p>
+                  <p class="presc-date">Issued: May 15, 2026 · Expires: Nov 15, 2026</p>
+                </div>
+                <span class="presc-status active-presc">Active</span>
+              </div>
+              <div class="presc-item">
+                <div class="presc-icon">💊</div>
+                <div class="presc-info">
+                  <h4>Ibuprofen 400mg</h4>
+                  <p>As needed · Dr. Carlos Rivera</p>
+                  <p class="presc-date">Issued: March 10, 2026 · Expired</p>
+                </div>
+                <span class="presc-status expired-presc">Expired</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- SETTINGS TAB -->
+          <div class="tab-panel" id="tab-settings">
+            <h2 class="content-title">Account Settings</h2>
+            <form class="settings-form" id="settingsForm">
+              <div class="settings-section">
+                <h3 class="settings-section-title">Personal Information</h3>
+                <div class="form-row2">
+                  <div class="form-group"><label for="sFirst">First Name</label><input type="text" id="sFirst" class="form-input" value="Sahr" /></div>
+                  <div class="form-group"><label for="sLast">Last Name</label><input type="text" id="sLast" class="form-input" value="Kobba" /></div>
+                </div>
+                <div class="form-group"><label for="sEmail">Email</label><input type="email" id="sEmail" class="form-input" value="sahr.kobba@example.com" /></div>
+                <div class="form-group"><label for="sPhone">Phone</label><input type="tel" id="sPhone" class="form-input" value="+1 800 000 0000" /></div>
+              </div>
+              <div class="settings-section">
+                <h3 class="settings-section-title">Notification Preferences</h3>
+                <div class="notif-row">
+                  <span>Email appointment reminders</span>
+                  <label class="toggle-switch"><input type="checkbox" checked /><span class="toggle-track"></span></label>
+                </div>
+                <div class="notif-row">
+                  <span>SMS reminders</span>
+                  <label class="toggle-switch"><input type="checkbox" checked /><span class="toggle-track"></span></label>
+                </div>
+                <div class="notif-row">
+                  <span>Promotional emails</span>
+                  <label class="toggle-switch"><input type="checkbox" /><span class="toggle-track"></span></label>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary">Save Changes</button>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ══ FOOTER ══════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="main.html" class="logo">
+            <img src="images/logo.png" alt="Lim Health Service" class="logo-img footer-logo" />
+          </a>
+          <p>Providing compassionate, world-class healthcare to every patient, every day.</p>
+        </div>
+        <div class="footer-links-group">
+          <h4>Services</h4>
+          <a href="services.html">General Checkup</a>
+          <a href="services.html">Lab Tests</a>
+          <a href="services.html">Emergency Care</a>
+          <a href="services.html">Specialist Care</a>
+        </div>
+        <div class="footer-links-group">
+          <h4>Company</h4>
+          <a href="about-us.html">About Us</a>
+          <a href="doctors-detail.html">Our Doctors</a>
+          <a href="profile.html">My Profile</a>
+        </div>
+        <div class="footer-links-group">
+          <h4>Support</h4>
+          <a href="main.html#contact">Contact Us</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms &amp; Conditions</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <small class="footer-copy">&copy; 2026 Lim Health Service. All rights reserved.</small>
+      </div>
+    </div>
+  </footer>
+
+  <script src="profile.js"></script>
+</body>
+</html>

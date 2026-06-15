@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lim Health Service — Book Appointment</title>
+  <link rel="stylesheet" href="book-appointment.css" />
+</head>
+<body>
+
+  <header class="header">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="main.html" class="logo">
+          <img src="images/logo.png" alt="Lim Health Service" class="logo-img" />
+        </a>
+        <nav class="main-nav">
+          <a href="main.html">Home</a>
+          <a href="services.html">Services</a>
+          <a href="doctors-detail.html">Doctors</a>
+          <a href="about-us.html">About Us</a>
+        </nav>
+        <div class="nav-actions">
+          <a href="auth.html" class="btn btn-outline">Login</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Progress Steps -->
+  <div class="progress-steps" aria-label="Booking steps">
+    <div class="container">
+      <div class="steps-bar">
+        <div class="step-node active" data-step="1"><span>1</span><small>Details</small></div>
+        <div class="step-line"></div>
+        <div class="step-node" data-step="2"><span>2</span><small>Schedule</small></div>
+        <div class="step-line"></div>
+        <div class="step-node" data-step="3"><span>3</span><small>Confirm</small></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOOKING LAYOUT -->
+  <main class="book-main">
+    <div class="container">
+      <div class="book-layout">
+
+        <!-- FORM COLUMN -->
+        <div class="form-col">
+          <form id="bookingForm" novalidate>
+
+            <!-- STEP 1: Patient Details -->
+            <div class="form-step active" id="step1">
+              <h2 class="step-title">Patient Information</h2>
+              <p class="step-sub">Please fill in your details so we can personalise your appointment.</p>
+
+              <div class="form-row2">
+                <div class="form-group">
+                  <label for="bFirstName">First Name <span class="req">*</span></label>
+                  <input type="text" id="bFirstName" class="form-input" placeholder="John" required />
+                  <span class="ferr" id="errFirstName" role="alert"></span>
+                </div>
+                <div class="form-group">
+                  <label for="bLastName">Last Name <span class="req">*</span></label>
+                  <input type="text" id="bLastName" class="form-input" placeholder="Doe" required />
+                </div>
+              </div>
+
+              <div class="form-row2">
+                <div class="form-group">
+                  <label for="bEmail">Email <span class="req">*</span></label>
+                  <input type="email" id="bEmail" class="form-input" placeholder="you@example.com" required />
+                  <span class="ferr" id="errEmail" role="alert"></span>
+                </div>
+                <div class="form-group">
+                  <label for="bPhone">Phone <span class="req">*</span></label>
+                  <input type="tel" id="bPhone" class="form-input" placeholder="+1 800 000 0000" required />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="bDob">Date of Birth</label>
+                <input type="date" id="bDob" class="form-input" />
+              </div>
+
+              <div class="form-group">
+                <label for="bGender">Gender</label>
+                <select id="bGender" class="form-select">
+                  <option value="">Prefer not to say</option>
+                  <option>Male</option>
+                  <option>Female</option>
+                  <option>Non-binary</option>
+                  <option>Other</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="bInsurance">Insurance Provider</label>
+                <input type="text" id="bInsurance" class="form-input" placeholder="e.g. BlueCross BlueShield" />
+              </div>
+
+              <div class="form-group">
+                <label for="bNotes">Reason for Visit / Symptoms</label>
+                <textarea id="bNotes" class="form-textarea" rows="3" placeholder="Describe your symptoms or reason for this appointment..."></textarea>
+              </div>
+
+              <button type="button" class="btn btn-primary btn-full" id="toStep2Btn">Continue to Schedule →</button>
+            </div>
+
+            <!-- STEP 2: Schedule -->
+            <div class="form-step" id="step2">
+              <h2 class="step-title">Schedule Your Appointment</h2>
+              <p class="step-sub">Choose your preferred doctor, date, and time slot.</p>
+
+              <div class="form-group">
+                <label for="bService">Service Type <span class="req">*</span></label>
+                <select id="bService" class="form-select" required>
+                  <option value="">Select a service</option>
+                  <option>General Checkup</option>
+                  <option>Lab Tests</option>
+                  <option>Emergency Care</option>
+                  <option>Cardiology</option>
+                  <option>Neurology</option>
+                  <option>Pediatrics</option>
+                  <option>Orthopedics</option>
+                  <option>Dermatology</option>
+                </select>
+                <span class="ferr" id="errService" role="alert"></span>
+              </div>
+
+              <div class="form-group">
+                <label for="bDoctor">Select Doctor <span class="req">*</span></label>
+                <select id="bDoctor" class="form-select" required>
+                  <option value="">Choose a doctor</option>
+                  <option>Dr. Sarah Mitchell — Cardiologist</option>
+                  <option>Dr. James Olusegun — Neurologist</option>
+                  <option>Dr. Priya Sharma — Pediatrician</option>
+                  <option>Dr. Carlos Rivera — Orthopedic Surgeon</option>
+                  <option>Dr. Amina Diallo — Dermatologist</option>
+                  <option>Dr. Mei Ling — Cardiologist</option>
+                </select>
+                <span class="ferr" id="errDoctor" role="alert"></span>
+              </div>
+
+              <div class="form-group">
+                <label for="bDate">Preferred Date <span class="req">*</span></label>
+                <input type="date" id="bDate" class="form-input" required />
+                <span class="ferr" id="errDate" role="alert"></span>
+              </div>
+
+              <div class="form-group">
+                <label>Preferred Time Slot <span class="req">*</span></label>
+                <div class="time-slots" id="timeSlots" role="group" aria-label="Select time slot">
+                  <button type="button" class="time-slot" data-time="08:00 AM">08:00 AM</button>
+                  <button type="button" class="time-slot" data-time="09:00 AM">09:00 AM</button>
+                  <button type="button" class="time-slot" data-time="10:00 AM">10:00 AM</button>
+                  <button type="button" class="time-slot" data-time="11:00 AM">11:00 AM</button>
+                  <button type="button" class="time-slot" data-time="02:00 PM">02:00 PM</button>
+                  <button type="button" class="time-slot" data-time="03:00 PM">03:00 PM</button>
+                  <button type="button" class="time-slot unavail" data-time="04:00 PM" disabled>04:00 PM</button>
+                  <button type="button" class="time-slot unavail" data-time="05:00 PM" disabled>05:00 PM</button>
+                </div>
+                <span class="ferr" id="errTime" role="alert"></span>
+              </div>
+
+              <div class="form-group">
+                <label for="bVisitType">Visit Type</label>
+                <div class="visit-type-group" role="group" aria-label="Visit type">
+                  <label class="visit-option">
+                    <input type="radio" name="visitType" value="in-person" checked />
+                    <span>🏥 In-Person</span>
+                  </label>
+                  <label class="visit-option">
+                    <input type="radio" name="visitType" value="virtual" />
+                    <span>💻 Virtual</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="step-nav">
+                <button type="button" class="btn btn-ghost" id="backToStep1Btn">← Back</button>
+                <button type="button" class="btn btn-primary" id="toStep3Btn">Review Booking →</button>
+              </div>
+            </div>
+
+            <!-- STEP 3: Confirm -->
+            <div class="form-step" id="step3">
+              <h2 class="step-title">Confirm Your Booking</h2>
+              <p class="step-sub">Please review your appointment details before submitting.</p>
+
+              <div class="confirm-summary" id="confirmSummary">
+                <!-- Filled by JS -->
+              </div>
+
+              <div class="consent-block">
+                <label class="check-label">
+                  <input type="checkbox" id="consentCheck" required />
+                  I confirm that all provided information is accurate and I agree to the <a href="#" class="inline-link">Terms of Service</a> and <a href="#" class="inline-link">Privacy Policy</a>.
+                </label>
+              </div>
+
+              <div class="step-nav">
+                <button type="button" class="btn btn-ghost" id="backToStep2Btn">← Back</button>
+                <button type="submit" class="btn btn-primary" id="submitBtn">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M9 16l2 2 4-4"/></svg>
+                  CONFIRM BOOKING
+                </button>
+              </div>
+            </div>
+
+          </form>
+        </div>
+
+        <!-- SIDEBAR COLUMN -->
+        <aside class="sidebar-col">
+          <div class="sidebar-card">
+            <h3 class="sidebar-title">Why Book With Us?</h3>
+            <ul class="sidebar-list">
+              <li><span class="sl-icon">✓</span><span>Instant confirmation via email & SMS</span></li>
+              <li><span class="sl-icon">✓</span><span>Free rescheduling up to 24h before</span></li>
+              <li><span class="sl-icon">✓</span><span>All major insurance plans accepted</span></li>
+              <li><span class="sl-icon">✓</span><span>HIPAA-compliant secure data handling</span></li>
+              <li><span class="sl-icon">✓</span><span>Post-visit follow-up & care summary</span></li>
+            </ul>
+          </div>
+
+          <div class="sidebar-card sidebar-contact">
+            <h3 class="sidebar-title">Need Help?</h3>
+            <a href="tel:+18001234567" class="sidebar-action">
+              <span>📞</span><span>1-800-LIM-HEALTH</span>
+            </a>
+            <a href="#" class="sidebar-action">
+              <span>💬</span><span>Start Live Chat</span>
+            </a>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Success Modal -->
+  <div class="modal-overlay" id="successModal" aria-modal="true" role="dialog" aria-labelledby="modalTitle" hidden>
+    <div class="modal-box">
+      <div class="modal-icon">✅</div>
+      <h2 id="modalTitle">Appointment Confirmed!</h2>
+      <p id="modalSummaryText">Your appointment has been successfully booked. Check your email for confirmation details.</p>
+      <div class="modal-actions">
+        <a href="profile.html" class="btn btn-primary">View My Profile</a>
+        <a href="main.html" class="btn btn-ghost">Back to Home</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ FOOTER ══════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="main.html" class="logo">
+            <img src="images/logo.png" alt="Lim Health Service" class="logo-img footer-logo" />
+          </a>
+          <p>Providing compassionate, world-class healthcare to every patient, every day.</p>
+        </div>
+        <div class="footer-links-group">
+          <h4>Services</h4>
+          <a href="services.html">General Checkup</a>
+          <a href="services.html">Lab Tests</a>
+          <a href="services.html">Emergency Care</a>
+          <a href="services.html">Specialist Care</a>
+        </div>
+        <div class="footer-links-group">
+          <h4>Company</h4>
+          <a href="about-us.html">About Us</a>
+          <a href="doctors-detail.html">Our Doctors</a>
+          <a href="profile.html">My Profile</a>
+        </div>
+        <div class="footer-links-group">
+          <h4>Support</h4>
+          <a href="main.html#contact">Contact Us</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms &amp; Conditions</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <small class="footer-copy">&copy; 2026 Lim Health Service. All rights reserved.</small>
+      </div>
+    </div>
+  </footer>
+
+  <script src="book-appointment.js"></script>
+</body>
+</html>

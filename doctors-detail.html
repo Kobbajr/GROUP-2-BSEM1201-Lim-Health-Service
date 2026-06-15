@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lim Health Service — Doctors</title>
+  <link rel="stylesheet" href="doctors-detail.css" />
+</head>
+<body>
+
+  <header class="header">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="main.html" class="logo">
+          <img src="images/logo.png" alt="Lim Health Service" class="logo-img" />
+        </a>
+        <nav class="main-nav">
+          <a href="main.html">Home</a>
+          <a href="services.html">Services</a>
+          <a href="doctors-detail.html" class="active">Doctors</a>
+          <a href="about-us.html">About Us</a>
+          <a href="main.html#contact">Contact</a>
+        </nav>
+        <div class="nav-actions">
+          <a href="auth.html" class="btn btn-outline">Login</a>
+          <a href="book-appointment.html" class="btn btn-primary">Book Now</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="container">
+      <p class="sec-label">Expert Medical Team</p>
+      <h1 class="page-hero-title">Our <span class="gt">Doctors</span></h1>
+      <p class="page-hero-sub">48+ board-certified specialists across 14 medical disciplines, committed to exceptional patient outcomes.</p>
+    </div>
+  </section>
+
+  <!-- SEARCH & FILTER -->
+  <div class="doc-filter-band">
+    <div class="container">
+      <div class="doc-search-wrap" role="search">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="search" id="docSearch" placeholder="Search by name or specialty..." class="doc-search-input" aria-label="Search doctors" />
+      </div>
+      <div class="spec-filters" role="group" aria-label="Filter by specialty">
+        <button class="spec-btn active" data-spec="all">All</button>
+        <button class="spec-btn" data-spec="cardiologist">Cardiology</button>
+        <button class="spec-btn" data-spec="neurologist">Neurology</button>
+        <button class="spec-btn" data-spec="pediatrician">Pediatrics</button>
+        <button class="spec-btn" data-spec="orthopedic">Orthopedics</button>
+        <button class="spec-btn" data-spec="dermatologist">Dermatology</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOCTORS GRID -->
+  <section class="section">
+    <div class="container">
+      <div class="doctors-grid" id="doctorsGrid">
+
+        <article class="doc-card" data-spec="cardiologist" data-name="sarah mitchell">
+          <div class="doc-top">
+            <div class="doc-av-wrap">
+              <img src="images/Dr. Sarah Mitchell.jpg" alt="Dr. Sarah Mitchell" class="doc-av-img" />
+              <span class="avail-dot" title="Available"></span>
+            </div>
+            <div class="doc-info">
+              <h3 class="doc-name">Dr. Sarah Mitchell</h3>
+              <p class="doc-spec-tag">Cardiologist</p>
+              <div class="doc-stars" aria-label="4 of 5 stars">★★★★<span class="star-off">★</span></div>
+              <p class="doc-rating-text">4.0 · 312 reviews</p>
+            </div>
+          </div>
+          <p class="doc-bio">Specializes in interventional cardiology with over 18 years of experience. Fellowship-trained at Johns Hopkins. Expert in minimally invasive cardiac procedures and heart failure management.</p>
+          <div class="doc-tags">
+            <span>Interventional</span><span>Heart Failure</span><span>ECG</span>
+          </div>
+          <div class="doc-meta">
+            <span class="doc-exp">18 yrs experience</span>
+            <span class="doc-avail-text">Available Today</span>
+          </div>
+          <div class="doc-actions">
+            <button class="btn btn-ghost btn-sm" onclick="toggleBio(this)">View Profile</button>
+            <a href="book-appointment.html?doctor=Dr.+Sarah+Mitchell" class="btn btn-primary btn-sm">Book Appointment</a>
+          </div>
+          <div class="doc-expanded" hidden>
+            <h4>Education & Training</h4>
+            <ul><li>MD — Harvard Medical School</li><li>Residency — Mayo Clinic</li><li>Fellowship — Johns Hopkins Cardiology</li></ul>
+            <h4 style="margin-top:.8rem">Languages</h4>
+            <p>English, French</p>
+            <h4 style="margin-top:.8rem">Accepting New Patients</h4>
+            <p class="green-text">✓ Yes — Book today</p>
+          </div>
+        </article>
+
+        <article class="doc-card" data-spec="neurologist" data-name="james olusegun">
+          <div class="doc-top">
+            <div class="doc-av-wrap">
+              <img src="images/Dr. James Olusegun.jpg" alt="Dr. James Olusegun" class="doc-av-img" />
+              <span class="avail-dot" title="Available"></span>
+            </div>
+            <div class="doc-info">
+              <h3 class="doc-name">Dr. James Olusegun</h3>
+              <p class="doc-spec-tag">Neurologist</p>
+              <div class="doc-stars" aria-label="4 of 5 stars">★★★★<span class="star-off">★</span></div>
+              <p class="doc-rating-text">4.0 · 278 reviews</p>
+            </div>
+          </div>
+          <p class="doc-bio">Expert in epilepsy, movement disorders, and neurodegenerative diseases. Published researcher with 120+ peer-reviewed papers. 22 years of clinical and academic neurology practice.</p>
+          <div class="doc-tags">
+            <span>Epilepsy</span><span>Parkinson's</span><span>EEG</span>
+          </div>
+          <div class="doc-meta">
+            <span class="doc-exp">22 yrs experience</span>
+            <span class="doc-avail-text">Available Today</span>
+          </div>
+          <div class="doc-actions">
+            <button class="btn btn-ghost btn-sm" onclick="toggleBio(this)">View Profile</button>
+            <a href="book-appointment.html?doctor=Dr.+James+Olusegun" class="btn btn-primary btn-sm">Book Appointment</a>
+          </div>
+          <div class="doc-expanded" hidden>
+            <h4>Education & Training</h4>
+            <ul><li>MD — University of Lagos</li><li>Residency — Cleveland Clinic</li><li>Fellowship — UCSF Neuroscience</li></ul>
+            <h4 style="margin-top:.8rem">Languages</h4>
+            <p>English, Yoruba</p>
+            <h4 style="margin-top:.8rem">Accepting New Patients</h4>
+            <p class="green-text">✓ Yes — Book today</p>
+          </div>
+        </article>
+
+        <article class="doc-card" data-spec="pediatrician" data-name="priya sharma">
+          <div class="doc-top">
+            <div class="doc-av-wrap">
+              <img src="images/Dr. Priya Sharma.jpg" alt="Dr. Priya Sharma" class="doc-av-img" />
+              <span class="avail-dot" title="Available"></span>
+            </div>
+            <div class="doc-info">
+              <h3 class="doc-name">Dr. Priya Sharma</h3>
+              <p class="doc-spec-tag">Pediatrician</p>
+              <div class="doc-stars" aria-label="4 of 5 stars">★★★★<span class="star-off">★</span></div>
+              <p class="doc-rating-text">4.0 · 195 reviews</p>
+            </div>
+          </div>
+          <p class="doc-bio">Devoted to child health from newborn through adolescent care. Certified in developmental-behavioral pediatrics. Known for her warm, patient-centered approach with children and families.</p>
+          <div class="doc-tags">
+            <span>Newborn</span><span>Developmental</span><span>Vaccines</span>
+          </div>
+          <div class="doc-meta">
+            <span class="doc-exp">14 yrs experience</span>
+            <span class="doc-avail-text">Available Today</span>
+          </div>
+          <div class="doc-actions">
+            <button class="btn btn-ghost btn-sm" onclick="toggleBio(this)">View Profile</button>
+            <a href="book-appointment.html?doctor=Dr.+Priya+Sharma" class="btn btn-primary btn-sm">Book Appointment</a>
+          </div>
+          <div class="doc-expanded" hidden>
+            <h4>Education & Training</h4>
+            <ul><li>MBBS — AIIMS New Delhi</li><li>Residency — Children's Hospital Boston</li><li>Fellowship — Developmental Pediatrics</li></ul>
+            <h4 style="margin-top:.8rem">Languages</h4>
+            <p>English, Hindi, Tamil</p>
+            <h4 style="margin-top:.8rem">Accepting New Patients</h4>
+            <p class="green-text">✓ Yes — Book today</p>
+          </div>
+        </article>
+
+        <article class="doc-card" data-spec="orthopedic" data-name="carlos rivera">
+          <div class="doc-top">
+            <div class="doc-av-wrap">
+              <img src="images/Dr. Carlos Rivera.jpg" alt="Dr. Carlos Rivera" class="doc-av-img" />
+              <span class="avail-dot avail-busy" title="Busy today"></span>
+            </div>
+            <div class="doc-info">
+              <h3 class="doc-name">Dr. Carlos Rivera</h3>
+              <p class="doc-spec-tag">Orthopedic Surgeon</p>
+              <div class="doc-stars" aria-label="5 of 5 stars">★★★★★</div>
+              <p class="doc-rating-text">4.8 · 410 reviews</p>
+            </div>
+          </div>
+          <p class="doc-bio">Orthopaedic specialist focusing on sports injuries, joint replacement, and spinal disorders. Pioneer of arthroscopic minimally invasive techniques with 25 years in surgical practice.</p>
+          <div class="doc-tags">
+            <span>Sports Injury</span><span>Joint Replacement</span><span>Spine</span>
+          </div>
+          <div class="doc-meta">
+            <span class="doc-exp">25 yrs experience</span>
+            <span class="doc-avail-text busy-text">Next: Tomorrow</span>
+          </div>
+          <div class="doc-actions">
+            <button class="btn btn-ghost btn-sm" onclick="toggleBio(this)">View Profile</button>
+            <a href="book-appointment.html?doctor=Dr.+Carlos+Rivera" class="btn btn-primary btn-sm">Book Appointment</a>
+          </div>
+          <div class="doc-expanded" hidden>
+            <h4>Education & Training</h4>
+            <ul><li>MD — Universidad Autónoma de Madrid</li><li>Residency — Hospital for Special Surgery, NY</li><li>Fellowship — Sports Medicine & Arthroscopy</li></ul>
+            <h4 style="margin-top:.8rem">Languages</h4>
+            <p>English, Spanish</p>
+            <h4 style="margin-top:.8rem">Accepting New Patients</h4>
+            <p class="green-text">✓ Yes — Next slot tomorrow</p>
+          </div>
+        </article>
+
+        <article class="doc-card" data-spec="dermatologist" data-name="amina diallo">
+          <div class="doc-top">
+            <div class="doc-av-wrap">
+              <img src="images/Dr. Amina Diallo.jpg" alt="Dr. Amina Diallo" class="doc-av-img" />
+              <span class="avail-dot" title="Available"></span>
+            </div>
+            <div class="doc-info">
+              <h3 class="doc-name">Dr. Amina Diallo</h3>
+              <p class="doc-spec-tag">Dermatologist</p>
+              <div class="doc-stars" aria-label="5 of 5 stars">★★★★★</div>
+              <p class="doc-rating-text">4.7 · 386 reviews</p>
+            </div>
+          </div>
+          <p class="doc-bio">Board-certified dermatologist specializing in skin cancer detection, cosmetic procedures, and chronic skin conditions. Trained at Stanford and internationally recognized for melanoma research.</p>
+          <div class="doc-tags">
+            <span>Skin Cancer</span><span>Eczema</span><span>Cosmetic</span>
+          </div>
+          <div class="doc-meta">
+            <span class="doc-exp">16 yrs experience</span>
+            <span class="doc-avail-text">Available Today</span>
+          </div>
+          <div class="doc-actions">
+            <button class="btn btn-ghost btn-sm" onclick="toggleBio(this)">View Profile</button>
+            <a href="book-appointment.html?doctor=Dr.+Amina+Diallo" class="btn btn-primary btn-sm">Book Appointment</a>
+          </div>
+          <div class="doc-expanded" hidden>
+            <h4>Education & Training</h4>
+            <ul><li>MD — University of Dakar</li><li>Residency — Stanford Medical Center</li><li>Fellowship — Dermatologic Surgery</li></ul>
+            <h4 style="margin-top:.8rem">Languages</h4>
+            <p>English, French, Wolof</p>
+            <h4 style="margin-top:.8rem">Accepting New Patients</h4>
+            <p class="green-text">✓ Yes — Book today</p>
+          </div>
+        </article>
+
+        <article class="doc-card" data-spec="cardiologist" data-name="mei ling">
+          <div class="doc-top">
+            <div class="doc-av-wrap">
+              <img src="images/Dr. Mei Ling.jpg" alt="Dr. Mei Ling" class="doc-av-img" />
+              <span class="avail-dot" title="Available"></span>
+            </div>
+            <div class="doc-info">
+              <h3 class="doc-name">Dr. Mei Ling</h3>
+              <p class="doc-spec-tag">Cardiologist</p>
+              <div class="doc-stars" aria-label="4 of 5 stars">★★★★<span class="star-off">★</span></div>
+              <p class="doc-rating-text">4.2 · 224 reviews</p>
+            </div>
+          </div>
+          <p class="doc-bio">Non-invasive cardiologist with expertise in echocardiography, cardiac imaging, and preventive cardiology. Dedicated to evidence-based management of hypertension and lipid disorders.</p>
+          <div class="doc-tags">
+            <span>Echo</span><span>Preventive</span><span>Lipids</span>
+          </div>
+          <div class="doc-meta">
+            <span class="doc-exp">12 yrs experience</span>
+            <span class="doc-avail-text">Available Today</span>
+          </div>
+          <div class="doc-actions">
+            <button class="btn btn-ghost btn-sm" onclick="toggleBio(this)">View Profile</button>
+            <a href="book-appointment.html?doctor=Dr.+Mei+Ling" class="btn btn-primary btn-sm">Book Appointment</a>
+          </div>
+          <div class="doc-expanded" hidden>
+            <h4>Education & Training</h4>
+            <ul><li>MD — Peking University Health Science Center</li><li>Residency — Massachusetts General Hospital</li><li>Fellowship — Preventive Cardiology</li></ul>
+            <h4 style="margin-top:.8rem">Languages</h4>
+            <p>English, Mandarin</p>
+            <h4 style="margin-top:.8rem">Accepting New Patients</h4>
+            <p class="green-text">✓ Yes — Book today</p>
+          </div>
+        </article>
+
+      </div>
+      <p class="no-results" id="noResults" hidden>No doctors found matching your search.</p>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ══════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="main.html" class="logo">
+            <img src="images/logo.png" alt="Lim Health Service" class="logo-img footer-logo" />
+          </a>
+          <p>Providing compassionate, world-class healthcare to every patient, every day.</p>
+        </div>
+        <div class="footer-links-group">
+          <h4>Services</h4>
+          <a href="services.html">General Checkup</a>
+          <a href="services.html">Lab Tests</a>
+          <a href="services.html">Emergency Care</a>
+          <a href="services.html">Specialist Care</a>
+        </div>
+        <div class="footer-links-group">
+          <h4>Company</h4>
+          <a href="about-us.html">About Us</a>
+          <a href="doctors-detail.html">Our Doctors</a>
+          <a href="profile.html">My Profile</a>
+        </div>
+        <div class="footer-links-group">
+          <h4>Support</h4>
+          <a href="main.html#contact">Contact Us</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms &amp; Conditions</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <small class="footer-copy">&copy; 2026 Lim Health Service. All rights reserved.</small>
+      </div>
+    </div>
+  </footer>
+
+  <script src="doctors-detail.js"></script>
+</body>
+</html>

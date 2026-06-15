@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lim Health Service</title>
+  <link rel="stylesheet" href="splash.css" />
+</head>
+<body>
+  <div class="splash-container" id="splashContainer">
+
+    <!-- Background particles -->
+    <div class="particles" aria-hidden="true">
+      <span class="particle p1"></span>
+      <span class="particle p2"></span>
+      <span class="particle p3"></span>
+      <span class="particle p4"></span>
+      <span class="particle p5"></span>
+      <span class="particle p6"></span>
+    </div>
+
+    <!-- ECG Line -->
+    <div class="ecg-strip" aria-hidden="true">
+      <svg viewBox="0 0 800 60" preserveAspectRatio="none">
+        <polyline class="ecg-line"
+          points="0,30 80,30 120,30 140,5 160,55 180,5 200,55 220,30 280,30 310,30 340,30 380,30 420,30 460,30 500,30 540,5 560,55 580,5 600,55 620,30 680,30 720,30 800,30"/>
+      </svg>
+    </div>
+
+    <!-- Main content -->
+    <div class="splash-content">
+
+      <!-- Pulse rings -->
+      <div class="pulse-wrapper" aria-hidden="true">
+        <div class="ring ring1"></div>
+        <div class="ring ring2"></div>
+        <div class="ring ring3"></div>
+        <div class="icon-core">
+          <img src="images/logo-icon.png" alt="" class="splash-icon-img" onerror="this.style.display='none'" />
+        </div>
+      </div>
+
+      <!-- Logo image -->
+      <div class="splash-logo">
+        <img src="images/logo.png" alt="Lim Health Service" class="splash-logo-img" />
+        <p class="logo-tagline">Care. Compassion. Commitment.</p>
+      </div>
+
+      <!-- Progress bar -->
+      <div class="progress-wrap" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Loading">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+      <p class="loading-text" id="loadingText" aria-live="polite">Initializing...</p>
+
+    </div>
+
+    <!-- Version tag -->
+    <p class="version-tag">v2.0 &nbsp;·&nbsp; 2026</p>
+
+  </div>
+
+  <script src="splash.js"></script>
+</body>
+</html>
