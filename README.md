@@ -99,7 +99,7 @@ No build tools or dependencies required. This is a pure HTML, CSS, and JavaScrip
 **Group 2 — Lim Health Service**
 
 - Sahr Kobba
-- *(additional team members)*
+- Emmanuel Koroma
 
 ---
 
