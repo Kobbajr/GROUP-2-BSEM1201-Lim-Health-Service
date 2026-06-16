@@ -100,7 +100,7 @@ No build tools or dependencies required. This is a pure HTML, CSS, and JavaScrip
 
 - Sahr Kobba
 - Emmanuel Koroma
-
+- Sylvanus Macauley 
 ---
 
 ## License
